@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HANDYVLAD - Painting & Handyman Services in NYC</title>
+    <style>
+        /* Enhanced styles with animations and modern design */
+        :root {
+            --primary: #e74c3c;
+            --primary-dark: #c0392b;
+            --primary-light: #ff6b5a;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --accent: #f39c12;
+            --gradient: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            --shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
+        }
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        /* Fade in animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Loading animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(231, 76, 60, 0.3);
+            border-top: 3px solid #e74c3c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--dark);
+            text-align: center;
+            margin: 0;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo span {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .logo span::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover span::after {
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(231, 76, 60, 0.1)),
+                url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(231, 76, 60, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+            animation: heroFadeIn 1.2s ease-out;
+        }
+
+        @keyframes heroFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(45deg, #fff, #f1c40f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); }
+            100% { text-shadow: 2px 2px 20px rgba(241, 196, 15, 0.5), 0 0 30px rgba(241, 196, 15, 0.3); }
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 14px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.4s ease;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .services,
+        .about,
+        .gallery,
+        .contact,
+        .tools {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services {
+            background: white;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-top: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(231, 76, 60, 0.2);
+            border-top: 4px solid var(--accent);
+        }
+
+        .service-card h3 {
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover h3 {
+            color: var(--primary-dark);
+            transform: translateX(5px);
+        }
+
+        .service-card i {
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover i {
+            transform: rotate(10deg) scale(1.1);
+            color: var(--accent);
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+
+        .service-card p {
+            color: #666;
+        }
+
+        .about {
+            background: var(--dark);
+            color: white;
+            padding: 60px 20px 40px 20px;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .tools {
+            background: white;
+            padding: 40px 20px 60px 20px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .tool-item {
+            padding: 20px;
+            background: var(--light);
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .tool-item:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tool-item i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .tool-item:hover i {
+            color: white;
+        }
+
+        .gallery {
+            background: var(--light);
+            padding: 40px 20px 80px 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            height: 250px;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.2) rotate(2deg);
+            filter: blur(2px);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(231, 76, 60, 0.3);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6));
+            color: white;
+            transition: all 0.3s ease;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+
+        .gallery-overlay h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .gallery-overlay p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .form-success {
+            background: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .form-success.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            background: white;
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.1);
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus + label,
+        .form-group textarea:focus + label,
+        .form-group select:focus + label {
+            color: var(--primary);
+            transform: scale(0.95);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Иконки инструментов (можно заменить на реальные изображения) */
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                height: 50vh;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <!-- Иконки Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">HANDY<span>VLAD</span></div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Professional Home Services in New York City</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Quality painting, repairs and renovations for your home
+                or business</p>
+            <a href="#contact" class="btn">GET A FREE ESTIMATE</a>
+        </div>
+    </section>
+
+    <section class="services">
+        <h2 class="section-title fade-in">Our Services</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <h3><i class="fas fa-paint-roller" style="color: #e74c3c; margin-right: 10px;"></i> House Painting</h3>
+                <p>Interior and exterior painting services using premium quality paints and materials. We provide
+                    flawless finishes that last.</p>
+                <ul style="color: #666; padding-left: 20px;">
+                    <li>Wall painting</li>
+                    <li>Cabinets refinishing</li>
+                    <li>Deck staining</li>
+                    <li>Wallpaper removal</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <h3><i class="fas fa-tools" style="color: #e74c3c; margin-right: 10px;"></i> Handyman Services</h3>
+                <p>Complete home repair and maintenance solutions. No job is too small for our experienced team.</p>
+                <ul style="color: #666; padding-left: 20px;">
+                    <li>Drywall repair</li>
+                    <li>Tile installation</li>
+                    <li>Furniture assembly</li>
+                    <li>General repairs</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <h3><i class="fas fa-home" style="color: #e74c3c; margin-right: 10px;"></i> Home Renovations</h3>
+                <p>Transform your space with our renovation services from small updates to complete makeovers.</p>
+                <ul style="color: #666; padding-left: 20px;">
+                    <li>Kitchen remodeling</li>
+                    <li>Bathroom renovations</li>
+                    <li>Flooring installation</li>
+                    <li>Lighting upgrades</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools">
+        <h2 class="section-title">Our Tools & Equipment</h2>
+        <div class="tools-grid">
+            <div class="tool-item">
+                <div class="tool-icon"><i class="fas fa-paint-roller"></i></div>
+                <h4>Painting Tools</h4>
+            </div>
+            <div class="tool-item">
+                <div class="tool-icon"><i class="fas fa-hammer"></i></div>
+                <h4>Carpentry</h4>
+            </div>
+            <div class="tool-item">
+                <div class="tool-icon"><i class="fas fa-toolbox"></i></div>
+                <h4>Hand Tools</h4>
+            </div>
+            <div class="tool-item">
+                <div class="tool-icon"><i class="fas fa-screwdriver"></i></div>
+                <h4>Fastening</h4>
+            </div>
+            <div class="tool-item">
+                <div class="tool-icon"><i class="fas fa-ruler-combined"></i></div>
+                <h4>Measuring</h4>
+            </div>
+            <div class="tool-item">
+                <div class="tool-icon"><i class="fas fa-plug"></i></div>
+                <h4>Electrical</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2 class="section-title" style="color: white;">About Our Company</h2>
+        <p>With over 5 years of experience serving New York City, HANDYVLAD has built a reputation for reliability,
+            quality workmanship, and exceptional customer service. Our team of skilled professionals takes pride in
+            every project, big or small.</p>
+        <div style="display: flex; justify-content: center; gap: 50px; margin-top: 40px; flex-wrap: wrap;">
+            <div class="stat-item fade-in" style="text-align: center;">
+                <div class="counter" data-target="500" style="font-size: 2.5rem; font-weight: bold; color: var(--primary);">0</div>
+                <div style="margin-top: 10px; font-size: 1.1rem;">Projects Completed</div>
+            </div>
+            <div class="stat-item fade-in" style="text-align: center;">
+                <div class="counter" data-target="100" style="font-size: 2.5rem; font-weight: bold; color: var(--primary);">0</div>
+                <div style="margin-top: 10px; font-size: 1.1rem;">% Satisfaction Guarantee</div>
+            </div>
+            <div class="stat-item fade-in" style="text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: bold; color: var(--primary);">24/7</div>
+                <div style="margin-top: 10px; font-size: 1.1rem;">Emergency Service</div>
+            </div>
+        </div>
+
+        <style>
+        .stat-item {
+            transition: all 0.3s ease;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .counter {
+            transition: all 0.3s ease;
+        }
+        </style>
+    </section>
+
+    <section class="gallery">
+        <h2 class="section-title fade-in">Our Recent Projects</h2>
+        <div class="fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 40px auto; padding: 0 20px;">
+            <p style="font-size: 1.1rem; color: #666; line-height: 1.8;">
+                We offer many different services to transform your home. From complete bathroom and kitchen renovations to exterior painting and deck restoration, our experienced team handles projects of all sizes across all NYC boroughs. Every project is completed with attention to detail and quality craftsmanship that exceeds expectations.
+            </p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://mywallworks.com/wp-content/uploads/2021/09/house-painting-service.jpeg"
+                    alt="Exterior painting">
+                <div class="gallery-overlay">
+                    <h3>House Painting</h3>
+                    <p>Complete exterior repaint in Brooklyn</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                    alt="Bathroom remodel">
+                <div class="gallery-overlay">
+                    <h3>Bathroom Remodel</h3>
+                    <p>Complete bathroom renovation with modern fixtures</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.upflip.com/wp-content/uploads/2024/09/Handyman-maintenance-skills.jpg"
+                    alt="Kitchen remodel">
+                <div class="gallery-overlay">
+                    <h3>Kitchen Upgrade</h3>
+                    <p>Custom cabinet installation</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://img1.wsimg.com/isteam/stock/bGKKVDy/:/rs=h:1000,cg:true,m" alt="Deck staining">
+                <div class="gallery-overlay">
+                    <h3>Deck Restoration</h3>
+                    <p>Staining and sealing in Queens</p>
+                </div>
+            </div>
+            <div class="gallery-item" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px;">
+                <div style="color: #495057; max-width: 250px;">
+                    <h3 style="color: #e74c3c; margin-bottom: 15px; font-size: 1.4rem;">Your Project Awaits</h3>
+                    <p style="font-size: 1rem; line-height: 1.6; margin: 0;">Ready to transform your space? From small repairs to complete renovations, we bring your vision to life with quality craftsmanship.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Floor installation">
+                <div class="gallery-overlay">
+                    <h3>Floor Installation</h3>
+                    <p>Hardwood flooring in Staten Island</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contact Us Today</h2>
+        <div class="contact-form">
+            <form>
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" required placeholder="John Smith">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="(347) 500-3695">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="service">Service Needed</label>
+                    <select id="service">
+                        <option value="">Select a service</option>
+                        <option value="painting">Painting</option>
+                        <option value="handyman">Handyman Services</option>
+                        <option value="renovation">Home Renovation</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Project Details</label>
+                    <textarea id="message" rows="5" placeholder="Describe your project..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">SUBMIT YOUR FORM</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>HANDYVLAD</h3>
+                <p>Quality home services throughout New York City. Licensed, insured and committed to excellence.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-yelp"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">House Painting</a></li>
+                    <li><a href="#">Handyman Services</a></li>
+                    <li><a href="#">Pressure Washing</a></li>
+                    <li><a href="#">Home Repairs</a></li>
+                    <li><a href="#">Renovations</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li><i class="fas fa-phone" style="margin-right: 10px;"></i> <a href="tel:3475003695">(347)
+                            500-3695</a></li>
+                    <li><i class="fas fa-envelope" style="margin-right: 10px;"></i> <a
+                            href="mailto:todavchych1989@gmail.com">todavchych1989@gmail.com</a></li>
+                    <li><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> Serving all NYC boroughs</li>
+                    <li><i class="fas fa-clock" style="margin-right: 10px;"></i> Mon-Sun: 7:00 AM - 9:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 HANDYVLAD. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
