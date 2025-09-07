@@ -36,22 +36,122 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-            padding: 12px 0;
+            padding: 12px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-left {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .header-center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-right {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
         }
 
         .logo {
             font-size: 24px;
             font-weight: 700;
             color: var(--dark);
-            text-align: center;
             letter-spacing: 0.5px;
         }
 
         .logo span {
             color: var(--primary);
+        }
+
+        .call-button, .share-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .share-button {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+            padding: 10px 15px;
+        }
+
+        .call-button:hover, .share-button:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .call-button:hover {
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .share-button:hover {
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+        }
+
+        .call-button i {
+            font-size: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .share-button i {
+            font-size: 1rem;
+            animation: shareRotate 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes shareRotate {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        .call-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+        }
+
+        .call-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .call-number {
+            font-size: 0.95rem;
+            font-weight: 700;
         }
 
         /* Hero Section - More Compact */
@@ -655,6 +755,41 @@
             .carousel-btn-next {
                 right: 10px;
             }
+
+            /* Header responsive */
+            .header-container {
+                padding: 0 10px;
+                grid-template-columns: auto 1fr auto;
+                gap: 10px;
+            }
+
+            .header-left, .header-right {
+                justify-content: center;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .call-button, .share-button {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+                gap: 6px;
+            }
+
+            .call-text {
+                display: none;
+            }
+
+            .call-button::after {
+                content: "(347) 500-3695";
+                font-size: 0.8rem;
+                font-weight: 600;
+            }
+
+            .share-button {
+                padding: 8px 12px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -677,6 +812,25 @@
             .carousel-slide img {
                 height: 250px;
             }
+
+            /* Header mobile */
+            .header-container {
+                padding: 0 5px;
+                gap: 8px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .call-button, .share-button {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+
+            .share-button {
+                padding: 6px 10px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -684,7 +838,25 @@
 
 <body>
     <header>
-        <div class="logo">HANDY<span>VLAD</span></div>
+        <div class="header-container">
+            <div class="header-left">
+                <a href="tel:(347) 500-3695" class="call-button">
+                    <i class="fas fa-phone"></i>
+                    <div class="call-text">
+                        <span class="call-label">Call Us</span>
+                        <span class="call-number">(347) 500-3695</span>
+                    </div>
+                </a>
+            </div>
+            <div class="header-center">
+                <div class="logo">HANDY<span>VLAD</span></div>
+            </div>
+            <div class="header-right">
+                <button class="share-button" id="shareButton">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
     </header>
 
     <section class="hero">
@@ -898,14 +1070,15 @@
     <section class="contact section" id="contact">
         <h2 class="section-title">Contact Us Today</h2>
         <div class="contact-form">
-            <!-- Форма с FormSubmit -->
+            <!-- Fixed form with correct redirect URL -->
             <form id="contactForm" action="https://formsubmit.co/04df94557f357b6d70fa412e4ce1df54" method="POST">
-                <!-- Скрытые поля для настройки FormSubmit -->
-                <input type="hidden" name="_subject" value="Новая заявка с сайта HANDYVLAD">
+                <!-- Hidden fields for FormSubmit configuration -->
+                <input type="hidden" name="_subject" value="New inquiry from HANDYVLAD website">
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://handyvladny.com/thank-you.html">
-                <input type="hidden" name="_autoresponse" value="Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.">
+                <!-- FIXED: Updated redirect URL to relative path -->
+                <input type="hidden" name="_next" value="thank-you.html">
+                <input type="hidden" name="_autoresponse" value="Thank you for your inquiry! We will contact you within 24 hours.">
 
                 <div class="form-group">
                     <label for="name">Your Name *</label>
@@ -933,7 +1106,10 @@
                     <label for="message">Project Details</label>
                     <textarea id="message" name="message" rows="4" placeholder="Describe your project..."></textarea>
                 </div>
-                <button type="submit" class="btn" style="width: 100%;" id="submitBtn">SUBMIT YOUR FORM</button>
+                <button type="submit" class="btn" style="width: 100%;">
+                    <i class="fas fa-paper-plane" style="margin-right: 8px;"></i>
+                    Send Message
+                </button>
             </form>
         </div>
     </section>
@@ -941,45 +1117,43 @@
     <footer>
         <div class="footer-content">
             <div class="footer-column">
-                <h3>HANDYVLAD</h3>
-                <p style="font-size: 0.9rem; line-height: 1.5; color: #ccc;">Quality home services throughout New York City. Licensed, insured and committed to excellence.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-yelp"></i></a>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h3>Services</h3>
+                <h3>Contact Information</h3>
                 <ul>
-                    <li><a href="#">House Painting</a></li>
-                    <li><a href="#">Handyman Services</a></li>
-                    <li><a href="#">Pressure Washing</a></li>
-                    <li><a href="#">Home Repairs</a></li>
-                    <li><a href="#">Renovations</a></li>
+                    <li><i class="fas fa-phone" style="margin-right: 8px; color: var(--primary);"></i> (347) 500-3695</li>
+                    <li><i class="fas fa-envelope" style="margin-right: 8px; color: var(--primary);"></i> handyvladny@gmail.com</li>
+                    <li><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: var(--primary);"></i> New York City, NY</li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>Contact</h3>
+                <h3>Our Services</h3>
                 <ul>
-                    <li><i class="fas fa-phone" style="margin-right: 8px;"></i> <a href="tel:3475003695">(347) 500-3695</a></li>
-                    <li><i class="fas fa-envelope" style="margin-right: 8px;"></i> <a href="mailto:todavchych1989@gmail.com">todavchych1989@gmail.com</a></li>
-                    <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> New York City, NY</li>
+                    <li><a href="#services">House Painting</a></li>
+                    <li><a href="#services">Handyman Services</a></li>
+                    <li><a href="#services">Home Renovations</a></li>
+                    <li><a href="#contact">Free Estimates</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Service Areas</h3>
                 <ul>
-                    <li><a href="#">Manhattan</a></li>
-                    <li><a href="#">Brooklyn</a></li>
-                    <li><a href="#">Queens</a></li>
-                    <li><a href="#">Bronx</a></li>
-                    <li><a href="#">Staten Island</a></li>
+                    <li>Manhattan</li>
+                    <li>Brooklyn</li>
+                    <li>Queens</li>
+                    <li>Bronx</li>
+                    <li>Staten Island</li>
                 </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2024 HANDYVLAD. All rights reserved.</p>
+            <p>&copy; 2024 HANDYVLAD. All rights reserved. Professional painting & handyman services in NYC.</p>
         </div>
     </footer>
 
@@ -987,13 +1161,13 @@
         // Carousel functionality
         document.addEventListener('DOMContentLoaded', function() {
             const track = document.getElementById('carouselTrack');
-            const slides = track.querySelectorAll('.carousel-slide');
             const nextBtn = document.getElementById('nextBtn');
             const prevBtn = document.getElementById('prevBtn');
             const dotsContainer = document.getElementById('carouselDots');
-
-            let currentSlide = 0;
+            
+            const slides = track.querySelectorAll('.carousel-slide');
             const totalSlides = slides.length;
+            let currentSlide = 0;
 
             // Create dots
             for (let i = 0; i < totalSlides; i++) {
@@ -1059,8 +1233,118 @@
                     }
                 }
             }
+
+            // Share button functionality
+            const shareButton = document.getElementById('shareButton');
+            
+            shareButton.addEventListener('click', async function() {
+                const shareData = {
+                    title: 'HANDYVLAD - Professional Home Services in NYC',
+                    text: 'Quality painting, repairs and renovations for your home or business. Get a free estimate today!',
+                    url: window.location.href
+                };
+
+                try {
+                    // Check if Web Share API is supported
+                    if (navigator.share) {
+                        await navigator.share(shareData);
+                    } else {
+                        // Fallback for browsers that don't support Web Share API
+                        showShareModal(shareData);
+                    }
+                } catch (error) {
+                    console.log('Error sharing:', error);
+                    // Fallback to modal if sharing fails
+                    showShareModal(shareData);
+                }
+            });
+
+            function showShareModal(shareData) {
+                // Create share modal
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 10000;
+                `;
+
+                const modalContent = document.createElement('div');
+                modalContent.style.cssText = `
+                    background: white;
+                    padding: 30px;
+                    border-radius: 15px;
+                    max-width: 400px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                `;
+
+                modalContent.innerHTML = `
+                    <h3 style="margin-bottom: 20px; color: #2c3e50;">Share HANDYVLAD</h3>
+                    <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 20px;">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}" 
+                           target="_blank" 
+                           style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #3b5998; color: white; border-radius: 50%; text-decoration: none; font-size: 20px;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.text)}&url=${encodeURIComponent(shareData.url)}" 
+                           target="_blank"
+                           style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #1da1f2; color: white; border-radius: 50%; text-decoration: none; font-size: 20px;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareData.url)}" 
+                           target="_blank"
+                           style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #0077b5; color: white; border-radius: 50%; text-decoration: none; font-size: 20px;">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <button onclick="copyToClipboard('${shareData.url}')" 
+                                style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #e74c3c; color: white; border-radius: 50%; border: none; cursor: pointer; font-size: 20px;">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <button onclick="this.closest('.share-modal').remove()" 
+                            style="background: #95a5a6; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600;">
+                        Close
+                    </button>
+                `;
+
+                modal.className = 'share-modal';
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+
+                // Close modal when clicking outside
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                });
+            }
+
+            // Copy to clipboard function
+            window.copyToClipboard = function(text) {
+                navigator.clipboard.writeText(text).then(function() {
+                    // Show success message
+                    const button = event.target.closest('button');
+                    const originalHTML = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    button.style.background = '#27ae60';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalHTML;
+                        button.style.background = '#e74c3c';
+                    }, 2000);
+                });
+            };
         });
     </script>
 </body>
 
 </html>
+
