@@ -280,6 +280,7 @@
             text-align: center;
             max-width: 700px;
             margin: 0 auto 35px auto;
+            position: relative;
         }
 
         .works-intro h2 {
@@ -562,6 +563,7 @@
 
         .footer-column ul {
             list-style: none;
+            padding: 0;
         }
 
         .footer-column ul li {
@@ -783,13 +785,13 @@
             <h2>Our Works</h2>
             <p>Discover the quality and craftsmanship that sets us apart. From elegant interior transformations to stunning exterior renovations - every project showcases our commitment to excellence.</p>
         </div>
-        
+
         <!-- Image Carousel -->
         <div class="carousel-container">
             <div class="carousel-wrapper">
                 <div class="carousel-track" id="carouselTrack">
                     <div class="carousel-slide">
-                        <img src="https://drive.google.com/file/d/1tY4ncccHBaSNk58gDdN79kYdTzZTwbvV/view?usp=drive_link" alt="Marble wall installation">
+                        <img src="images/IMG_2694.JPG" alt="Marble wall installation">
                     </div>
                     <div class="carousel-slide">
                         <img src="images/IMG_2693.JPG" alt="Bathroom tile work">
@@ -829,7 +831,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Navigation buttons -->
             <button class="carousel-btn carousel-btn-prev" id="prevBtn">
                 <i class="fas fa-chevron-left"></i>
@@ -837,7 +839,7 @@
             <button class="carousel-btn carousel-btn-next" id="nextBtn">
                 <i class="fas fa-chevron-right"></i>
             </button>
-            
+
             <!-- Dots indicator -->
             <div class="carousel-dots" id="carouselDots"></div>
         </div>
@@ -896,10 +898,15 @@
     <section class="contact section" id="contact">
         <h2 class="section-title">Contact Us Today</h2>
         <div class="contact-form">
-            <!-- Сообщения об успехе/ошибке -->
-            <div id="formMessage" class="form-message"></div>
-            
-            <form id="contactForm" method="POST" action="contact_handler.php">
+            <!-- Форма с FormSubmit -->
+            <form id="contactForm" action="https://formsubmit.co/todavchych1989@gmail.com" method="POST">
+                <!-- Скрытые поля для настройки FormSubmit -->
+                <input type="hidden" name="_subject" value="Новая заявка с сайта HANDYVLAD">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://handyvladny.com/thank-you.html">
+                <input type="hidden" name="_autoresponse" value="Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.">
+
                 <div class="form-group">
                     <label for="name">Your Name *</label>
                     <input type="text" id="name" name="name" required placeholder="John Smith">
@@ -984,10 +991,10 @@
             const nextBtn = document.getElementById('nextBtn');
             const prevBtn = document.getElementById('prevBtn');
             const dotsContainer = document.getElementById('carouselDots');
-            
+
             let currentSlide = 0;
             const totalSlides = slides.length;
-            
+
             // Create dots
             for (let i = 0; i < totalSlides; i++) {
                 const dot = document.createElement('div');
@@ -996,54 +1003,54 @@
                 dot.addEventListener('click', () => goToSlide(i));
                 dotsContainer.appendChild(dot);
             }
-            
+
             const dots = dotsContainer.querySelectorAll('.carousel-dot');
-            
+
             function updateCarousel() {
                 track.style.transform = `translateX(-${currentSlide * 100}%)`;
                 dots.forEach((dot, index) => {
                     dot.classList.toggle('active', index === currentSlide);
                 });
             }
-            
+
             function nextSlide() {
                 currentSlide = (currentSlide + 1) % totalSlides;
                 updateCarousel();
             }
-            
+
             function prevSlide() {
                 currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
                 updateCarousel();
             }
-            
+
             function goToSlide(slideIndex) {
                 currentSlide = slideIndex;
                 updateCarousel();
             }
-            
+
             nextBtn.addEventListener('click', nextSlide);
             prevBtn.addEventListener('click', prevSlide);
-            
+
             // Auto-play
             setInterval(nextSlide, 5000);
-            
+
             // Touch/swipe support
             let startX = 0;
             let endX = 0;
-            
+
             track.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
             });
-            
+
             track.addEventListener('touchend', (e) => {
                 endX = e.changedTouches[0].clientX;
                 handleSwipe();
             });
-            
+
             function handleSwipe() {
                 const swipeThreshold = 50;
                 const diff = startX - endX;
-                
+
                 if (Math.abs(diff) > swipeThreshold) {
                     if (diff > 0) {
                         nextSlide();
@@ -1053,76 +1060,7 @@
                 }
             }
         });
-
-        // Contact form handling
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contactForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const formMessage = document.getElementById('formMessage');
-
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Показываем состояние загрузки
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'ОТПРАВКА...';
-                formMessage.style.display = 'none';
-                
-                // Собираем данные формы
-                const formData = new FormData(contactForm);
-                
-                // Отправляем данные
-                fetch('contact_handler.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Показываем сообщение
-                    formMessage.style.display = 'block';
-                    formMessage.className = 'form-message ' + data.status;
-                    formMessage.textContent = data.message;
-                    
-                    // Если успешно, очищаем форму
-                    if (data.status === 'success') {
-                        contactForm.reset();
-                    }
-                    
-                    // Прокручиваем к сообщению
-                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    formMessage.style.display = 'block';
-                    formMessage.className = 'form-message error';
-                    formMessage.textContent = 'Произошла ошибка при отправке. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.';
-                })
-                .finally(() => {
-                    // Возвращаем кнопку в исходное состояние
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'SUBMIT YOUR FORM';
-                });
-            });
-        });
     </script>
-
-
-
-<form action="https://formspree.io/f/xblaqavq" method="POST">
-      <label>
-        Your email:
-        <input type="todavchych1989@gmail.com" name="todavchych1989@gmail.com" required>
-      </label>
-      <label>
-        Your message:
-        <textarea name="message" required></textarea>
-      </label>
-      <button type="submit">Send</button>
-    </form>
-
-
-    
 </body>
 
 </html>
-
