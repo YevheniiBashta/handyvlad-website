@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HANDYVLAD - Painting & Handyman Services in NYC</title>
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --primary-dark: #c0392b;
+            --primary-light: #ff6b5a;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --accent: #f39c12;
+            --gradient: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            --shadow: 0 8px 25px rgba(231, 76, 60, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+            line-height: 1.5;
+            background: #fafafa;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        /* Hero Section - More Compact */
+        .hero {
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.6), rgba(231, 76, 60, 0.2)),
+                url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Compact Section Styling */
+        .section {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Services Grid - More Compact */
+        .services {
+            background: white;
+            padding: 45px 20px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.15);
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .service-card ul {
+            color: #777;
+            padding-left: 18px;
+            font-size: 0.9rem;
+        }
+
+        .service-card ul li {
+            margin-bottom: 5px;
+        }
+
+        /* Tools Section - Compact */
+        .tools {
+            background: #f8f9fa;
+            padding: 40px 20px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .tool-item {
+            padding: 20px 15px;
+            background: white;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .tool-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .tool-item i {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        .tool-item:hover i {
+            color: white;
+        }
+
+        .tool-item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* About Section - Compact */
+        .about {
+            background: var(--dark);
+            color: white;
+            padding: 45px 20px;
+        }
+
+        .about p {
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        /* Our Works Section - Compact and Beautiful */
+        .our-works {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 50px 20px;
+        }
+
+        .works-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 35px auto;
+        }
+
+        .works-intro h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .works-intro p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Navigation Buttons */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-btn-prev {
+            left: 20px;
+        }
+
+        .carousel-btn-next {
+            right: 20px;
+        }
+
+        /* Dots Indicator */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(231, 76, 60, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .carousel-dot:hover {
+            background: var(--primary);
+        }
+
+
+        /* Gallery Section - Compact */
+        .gallery {
+            background: white;
+            padding: 45px 20px;
+        }
+
+        .gallery-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+
+        .gallery-intro p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            height: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+            color: white;
+            transition: bottom 0.3s ease;
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+        }
+
+        /* Contact Section - Compact */
+        .contact {
+            background: #f8f9fa;
+            padding: 45px 20px;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            background: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            background: white;
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Сообщения об успехе и ошибке */
+        .form-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Footer - Compact */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 35px 20px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: #ccc;
+            font-size: 1.3rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                height: 50vh;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 35px 15px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .service-grid,
+            .works-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 25px;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .carousel-slide img {
+                height: 300px;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+
+            .carousel-btn-prev {
+                left: 10px;
+            }
+
+            .carousel-btn-next {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .section {
+                padding: 30px 10px;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .carousel-slide img {
+                height: 250px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">HANDY<span>VLAD</span></div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Professional Home Services in New York City</h1>
+            <p>Quality painting, repairs and renovations for your home or business</p>
+            <a href="#contact" class="btn">GET A FREE ESTIMATE</a>
+        </div>
+    </section>
+
+    <section class="services section">
+        <h2 class="section-title">Our Services</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <h3><i class="fas fa-paint-roller" style="margin-right: 8px;"></i> House Painting</h3>
+                <p>Interior and exterior painting services using premium quality paints and materials.</p>
+                <ul>
+                    <li>Wall painting</li>
+                    <li>Cabinets refinishing</li>
+                    <li>Deck staining</li>
+                    <li>Wallpaper removal</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <h3><i class="fas fa-tools" style="margin-right: 8px;"></i> Handyman Services</h3>
+                <p>Complete home repair and maintenance solutions. No job is too small for our team.</p>
+                <ul>
+                    <li>Drywall repair</li>
+                    <li>Tile installation</li>
+                    <li>Furniture assembly</li>
+                    <li>General repairs</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <h3><i class="fas fa-home" style="margin-right: 8px;"></i> Home Renovations</h3>
+                <p>Transform your space with our renovation services from small updates to complete makeovers.</p>
+                <ul>
+                    <li>Kitchen remodeling</li>
+                    <li>Bathroom renovations</li>
+                    <li>Flooring installation</li>
+                    <li>Lighting upgrades</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools section">
+        <h2 class="section-title">Our Tools & Equipment</h2>
+        <div class="tools-grid">
+            <div class="tool-item">
+                <i class="fas fa-paint-roller"></i>
+                <h4>Painting Tools</h4>
+            </div>
+            <div class="tool-item">
+                <i class="fas fa-hammer"></i>
+                <h4>Carpentry</h4>
+            </div>
+            <div class="tool-item">
+                <i class="fas fa-toolbox"></i>
+                <h4>Hand Tools</h4>
+            </div>
+            <div class="tool-item">
+                <i class="fas fa-screwdriver"></i>
+                <h4>Fastening</h4>
+            </div>
+            <div class="tool-item">
+                <i class="fas fa-ruler-combined"></i>
+                <h4>Measuring</h4>
+            </div>
+            <div class="tool-item">
+                <i class="fas fa-plug"></i>
+                <h4>Electrical</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="about section">
+        <h2 class="section-title" style="color: white;">About Our Company</h2>
+        <p>With over 5 years of experience serving New York City, HANDYVLAD has built a reputation for reliability, quality workmanship, and exceptional customer service.</p>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <div class="stat-label">Satisfaction Guarantee</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <div class="stat-label">Emergency Service</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="our-works section">
+        <div class="works-intro">
+            <h2>Our Works</h2>
+            <p>Discover the quality and craftsmanship that sets us apart. From elegant interior transformations to stunning exterior renovations - every project showcases our commitment to excellence.</p>
+        </div>
+        
+        <!-- Image Carousel -->
+        <div class="carousel-container">
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide">
+                        <img src="images/IMG_2694.JPG" alt="Marble wall installation">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/IMG_2693.JPG" alt="Bathroom tile work">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/IMG_2690.JPG" alt="Wood paneling project">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/TC_01699.JPG" alt="Interior painting">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/TC_01700.JPG" alt="Room renovation">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/TC_01702.JPG" alt="Finished living space">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/IMG_2691.JPG" alt="Flooring installation">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/IMG_2692.JPG" alt="Outdoor patio project">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/TC_01332.JPG" alt="Ceiling work">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/TC_01697.JPG" alt="Wall preparation">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/TC_01696.JPG" alt="Wall painting">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/TC_01695.JPG" alt="Completed room">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/TC_01694.JPG" alt="Finishing touches">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation buttons -->
+            <button class="carousel-btn carousel-btn-prev" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn carousel-btn-next" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <!-- Dots indicator -->
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+    </section>
+
+    <section class="gallery section">
+        <h2 class="section-title">Our Recent Projects</h2>
+        <div class="gallery-intro">
+            <p>We offer many different services to transform your home. From complete renovations to exterior painting, our experienced team handles projects of all sizes across all NYC boroughs.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://mywallworks.com/wp-content/uploads/2021/09/house-painting-service.jpeg" alt="Exterior painting">
+                <div class="gallery-overlay">
+                    <h3>House Painting</h3>
+                    <p>Complete exterior repaint in Brooklyn</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Bathroom remodel">
+                <div class="gallery-overlay">
+                    <h3>Bathroom Remodel</h3>
+                    <p>Complete bathroom renovation with modern fixtures</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.upflip.com/wp-content/uploads/2024/09/Handyman-maintenance-skills.jpg" alt="Kitchen remodel">
+                <div class="gallery-overlay">
+                    <h3>Kitchen Upgrade</h3>
+                    <p>Custom cabinet installation</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://img1.wsimg.com/isteam/stock/bGKKVDy/:/rs=h:1000,cg:true,m" alt="Deck staining">
+                <div class="gallery-overlay">
+                    <h3>Deck Restoration</h3>
+                    <p>Staining and sealing in Queens</p>
+                </div>
+            </div>
+            <div class="gallery-item" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); display: flex; align-items: center; justify-content: center; text-align: center; padding: 30px;">
+                <div style="color: #495057;">
+                    <h3 style="color: #e74c3c; margin-bottom: 10px; font-size: 1.2rem;">Your Project Awaits</h3>
+                    <p style="font-size: 0.9rem; line-height: 1.5; margin: 0;">Ready to transform your space? We bring your vision to life with quality craftsmanship.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Floor installation">
+                <div class="gallery-overlay">
+                    <h3>Floor Installation</h3>
+                    <p>Hardwood flooring in Staten Island</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact section" id="contact">
+        <h2 class="section-title">Contact Us Today</h2>
+        <div class="contact-form">
+            <!-- Сообщения об успехе/ошибке -->
+            <div id="formMessage" class="form-message"></div>
+            
+            <form id="contactForm" method="POST" action="contact_handler.php">
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="John Smith">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="(347) 500-3695">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="service">Service Needed</label>
+                    <select id="service" name="service">
+                        <option value="">Select a service</option>
+                        <option value="painting">Painting</option>
+                        <option value="handyman">Handyman Services</option>
+                        <option value="renovation">Home Renovation</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Project Details</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Describe your project..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;" id="submitBtn">SUBMIT YOUR FORM</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>HANDYVLAD</h3>
+                <p style="font-size: 0.9rem; line-height: 1.5; color: #ccc;">Quality home services throughout New York City. Licensed, insured and committed to excellence.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-yelp"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">House Painting</a></li>
+                    <li><a href="#">Handyman Services</a></li>
+                    <li><a href="#">Pressure Washing</a></li>
+                    <li><a href="#">Home Repairs</a></li>
+                    <li><a href="#">Renovations</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li><i class="fas fa-phone" style="margin-right: 8px;"></i> <a href="tel:3475003695">(347) 500-3695</a></li>
+                    <li><i class="fas fa-envelope" style="margin-right: 8px;"></i> <a href="mailto:todavchych1989@gmail.com">todavchych1989@gmail.com</a></li>
+                    <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> New York City, NY</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Service Areas</h3>
+                <ul>
+                    <li><a href="#">Manhattan</a></li>
+                    <li><a href="#">Brooklyn</a></li>
+                    <li><a href="#">Queens</a></li>
+                    <li><a href="#">Bronx</a></li>
+                    <li><a href="#">Staten Island</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 HANDYVLAD. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('carouselTrack');
+            const slides = track.querySelectorAll('.carousel-slide');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const dotsContainer = document.getElementById('carouselDots');
+            
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            
+            // Create dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+            
+            function updateCarousel() {
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            }
+            
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+            
+            function goToSlide(slideIndex) {
+                currentSlide = slideIndex;
+                updateCarousel();
+            }
+            
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Auto-play
+            setInterval(nextSlide, 5000);
+            
+            // Touch/swipe support
+            let startX = 0;
+            let endX = 0;
+            
+            track.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+            
+            track.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = startX - endX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+            }
+        });
+
+        // Contact form handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Показываем состояние загрузки
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'ОТПРАВКА...';
+                formMessage.style.display = 'none';
+                
+                // Собираем данные формы
+                const formData = new FormData(contactForm);
+                
+                // Отправляем данные
+                fetch('contact_handler.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Показываем сообщение
+                    formMessage.style.display = 'block';
+                    formMessage.className = 'form-message ' + data.status;
+                    formMessage.textContent = data.message;
+                    
+                    // Если успешно, очищаем форму
+                    if (data.status === 'success') {
+                        contactForm.reset();
+                    }
+                    
+                    // Прокручиваем к сообщению
+                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    formMessage.style.display = 'block';
+                    formMessage.className = 'form-message error';
+                    formMessage.textContent = 'Произошла ошибка при отправке. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.';
+                })
+                .finally(() => {
+                    // Возвращаем кнопку в исходное состояние
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'SUBMIT YOUR FORM';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
+
