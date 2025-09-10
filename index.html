@@ -475,10 +475,20 @@
             position: relative;
         }
 
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+            max-height: 500px; /* Устанавливаем максимальную высоту для слайда */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Обрезаем, если изображение выходит за пределы */
+        }
+
         .carousel-slide img {
             width: 100%;
-            height: 500px;
-            object-fit: cover;
+            height: auto; /* Автоматическая высота для сохранения пропорций */
+            object-fit: contain; /* Изображение будет масштабироваться, чтобы поместиться в контейнер */
             display: block;
         }
 
@@ -1362,6 +1372,42 @@
                     }
                 });
             }
+
+            // Form submission handling
+            const form = document.getElementById('contactForm');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(form);
+                const object = {};
+                formData.forEach((value, key) => object[key] = value);
+                const json = JSON.stringify(object);
+
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                .then(async (response) => {
+                    if (response.ok) {
+                        window.location.href = form.querySelector('input[name="_next"]').value;
+                    } else {
+                        const data = await response.json();
+                        if (Object.hasOwn(data, 'errors')) {
+                            alert(data["errors"].map(error => error["message"]).join(", "));
+                        } else {
+                            alert('An unexpected error occurred.');
+                        }
+                    }
+                })
+                .catch(error => {
+                    alert('An error occurred while submitting the form.');
+                    console.error('Form submission error:', error);
+                });
+            });
 
             // Copy to clipboard function
             window.copyToClipboard = function(text) {
