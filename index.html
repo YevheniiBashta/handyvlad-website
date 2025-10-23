@@ -82,6 +82,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
             border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer; /* Добавлено для указателя */
         }
 
         .logo:hover {
@@ -96,7 +97,8 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        .call-button, .share-button {
+        .call-button,
+        .share-button {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -115,7 +117,8 @@
             overflow: hidden;
         }
 
-        .call-button::before, .share-button::before {
+        .call-button::before,
+        .share-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -126,8 +129,168 @@
             transition: left 0.5s ease;
         }
 
-        .call-button:hover::before, .share-button:hover::before {
+        .call-button:hover::before,
+        .share-button:hover::before {
             left: 100%;
+        }
+
+        /* Testimonials Section (Carousel) */
+        .testimonials {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            position: relative; /* Для кнопок и точек */
+        }
+
+        .testimonial-carousel-container {
+            max-width: 700px; /* Ограничиваем ширину для компактности */
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Скрываем кнопки по умолчанию */
+        .testimonial-carousel-container .carousel-btn {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Показываем кнопки при наведении */
+        .testimonial-carousel-container:hover .carousel-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .testimonial-carousel-wrapper {
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .testimonial-card {
+            min-width: 100%; /* Каждый отзыв занимает всю ширину */
+            box-sizing: border-box;
+            background: white;
+            padding: 40px 30px;
+            position: relative;
+            border-top: 5px solid var(--accent);
+        }
+
+        .testimonial-card::before {
+            content: "\f10d"; /* Font Awesome quote-left icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.15;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-author {
+            display: block;
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .testimonial-rating {
+            color: #FFD700; /* Gold color for stars */
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        /* Navigation Buttons */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(231, 76, 60, 0.8); /* Primary color with transparency */
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: white;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-btn-prev {
+            left: -50px; /* Вынесено за пределы контейнера */
+        }
+
+        .carousel-btn-next {
+            right: -50px; /* Вынесено за пределы контейнера */
+        }
+
+        /* Dots Indicator */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(231, 76, 60, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .carousel-dot:hover {
+            background: var(--primary);
+        }
+
+        /* Responsive adjustments for testimonials */
+        @media (max-width: 768px) {
+            /* На мобильных устройствах кнопки всегда видны, но внутри контейнера */
+            .testimonial-carousel-container .carousel-btn {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .carousel-btn-prev {
+                left: 10px;
+            }
+            .carousel-btn-next {
+                right: 10px;
+            }
+            .testimonial-card {
+                padding: 30px 20px;
+            }
         }
 
         .share-button {
@@ -136,7 +299,8 @@
             padding: 12px 18px;
         }
 
-        .call-button:hover, .share-button:hover {
+        .call-button:hover,
+        .share-button:hover {
             transform: translateY(-3px) scale(1.05);
             color: white;
         }
@@ -162,26 +326,33 @@
         }
 
         @keyframes pulse {
-            0%, 100% { 
+
+            0%,
+            100% {
                 transform: scale(1);
                 filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
             }
-            50% { 
+
+            50% {
                 transform: scale(1.15);
                 filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
             }
         }
 
         @keyframes shareRotate {
-            0%, 100% { 
+
+            0%,
+            100% {
                 transform: rotate(0deg);
                 filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
             }
-            25% { 
+
+            25% {
                 transform: rotate(-15deg);
                 filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
             }
-            75% { 
+
+            75% {
                 transform: rotate(15deg);
                 filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
             }
@@ -478,17 +649,21 @@
         .carousel-slide {
             min-width: 100%;
             position: relative;
-            max-height: 500px; /* Устанавливаем максимальную высоту для слайда */
+            max-height: 500px;
+            /* Устанавливаем максимальную высоту для слайда */
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Обрезаем, если изображение выходит за пределы */
+            overflow: hidden;
+            /* Обрезаем, если изображение выходит за пределы */
         }
 
         .carousel-slide img {
             width: 100%;
-            height: auto; /* Автоматическая высота для сохранения пропорций */
-            object-fit: contain; /* Изображение будет масштабироваться, чтобы поместиться в контейнер */
+            height: auto;
+            /* Автоматическая высота для сохранения пропорций */
+            object-fit: contain;
+            /* Изображение будет масштабироваться, чтобы поместиться в контейнер */
             display: block;
         }
 
@@ -770,8 +945,297 @@
             opacity: 0.8;
         }
 
+        /* Bathroom Renovation Section Styles */
+        .bathroom-renovation {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 60px 20px;
+        }
+
+        .bathroom-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+        }
+
+        .bathroom-intro p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .bathroom-packages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .bathroom-package {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .bathroom-package:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.15);
+            border-color: var(--primary);
+        }
+
+        .bathroom-package.featured {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            position: relative;
+        }
+
+        .bathroom-package.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .bathroom-package.custom {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+
+        .bathroom-package.custom .package-content {
+            color: white;
+        }
+
+        .bathroom-package.custom .package-features ul li {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .bathroom-package.custom .spec-label,
+        .bathroom-package.custom .spec-value {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .package-header {
+            background: var(--gradient);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .bathroom-package.custom .package-header {
+            background: linear-gradient(135deg, var(--accent) 0%, #e67e22 100%);
+        }
+
+        .package-header h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .package-price {
+            font-size: 1.4rem;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+        .custom-price {
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+
+        .package-content {
+            padding: 30px 25px;
+        }
+
+        .package-description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .bathroom-package.custom .package-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .package-features h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bathroom-package.custom .package-features h4 {
+            color: var(--accent);
+        }
+
+        .package-features ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 25px;
+        }
+
+        .package-features ul li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .package-features ul li i {
+            color: var(--primary);
+            margin-right: 12px;
+            font-size: 0.9rem;
+            width: 16px;
+            flex-shrink: 0;
+        }
+
+        .bathroom-package.custom .package-features ul li i {
+            color: var(--accent);
+        }
+
+        .package-specs {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        .bathroom-package.custom .package-specs {
+            border-top-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .spec-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .bathroom-package.custom .spec-value {
+            color: var(--accent);
+        }
+
+        .package-btn {
+            width: 100%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin: 0 25px 25px 25px;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .package-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .custom-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, #e67e22 100%);
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+            font-size: 0.9rem;
+            padding: 18px 25px;
+            line-height: 1.3;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .custom-btn:hover {
+            box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
+            .bathroom-renovation {
+                padding: 40px 15px;
+            }
+
+            .bathroom-packages {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .bathroom-package.featured {
+                transform: none;
+            }
+
+            .bathroom-package.featured:hover {
+                transform: translateY(-8px);
+            }
+
+            .package-header {
+                padding: 20px;
+            }
+
+            .package-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .package-price {
+                font-size: 1.2rem;
+            }
+
+            .package-content {
+                padding: 25px 20px;
+            }
+
+            .package-btn {
+                margin: 0 20px 20px 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .custom-btn {
+                padding: 15px 20px;
+                font-size: 0.85rem;
+            }
+
             .hero {
                 height: 50vh;
             }
@@ -820,14 +1284,15 @@
                 right: 10px;
             }
 
-            /* Header responsive */
+            /* Header responsive - ИСПРАВЛЕНО */
             .header-container {
                 padding: 0 10px;
                 grid-template-columns: auto 1fr auto;
                 gap: 10px;
             }
 
-            .header-left, .header-right {
+            .header-left,
+            .header-right {
                 justify-content: center;
             }
 
@@ -835,20 +1300,20 @@
                 font-size: 20px;
             }
 
-            .call-button, .share-button {
+            .call-button,
+            .share-button {
                 padding: 8px 15px;
                 font-size: 0.8rem;
                 gap: 6px;
             }
 
-            .call-text {
+            /* ИСПРАВЛЕНИЕ: Показываем только текст "Call Us" на мобильных */
+            .call-number {
                 display: none;
             }
 
-            .call-button::after {
-                content: "(347) 500-3695";
+            .call-label {
                 font-size: 0.8rem;
-                font-weight: 600;
             }
 
             .share-button {
@@ -857,6 +1322,37 @@
         }
 
         @media (max-width: 480px) {
+            .bathroom-renovation {
+                padding: 30px 10px;
+            }
+
+            .bathroom-intro p {
+                font-size: 1rem;
+            }
+
+            .package-header h3 {
+                font-size: 1.3rem;
+            }
+
+            .package-price {
+                font-size: 1.1rem;
+            }
+
+            .package-content {
+                padding: 20px 15px;
+            }
+
+            .package-btn {
+                margin: 0 15px 15px 15px;
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+
+            .custom-btn {
+                padding: 12px 15px;
+                font-size: 0.8rem;
+            }
+
             .hero h1 {
                 font-size: 1.6rem;
             }
@@ -887,7 +1383,8 @@
                 font-size: 18px;
             }
 
-            .call-button, .share-button {
+            .call-button,
+            .share-button {
                 padding: 6px 12px;
                 font-size: 0.75rem;
             }
@@ -896,6 +1393,254 @@
                 padding: 6px 10px;
             }
         }
+
+        /* Services Detail Section */
+        .services-detailed {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-detailed::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(243, 156, 18, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(231, 76, 60, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(52, 152, 219, 0.08) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(243, 156, 18, 0.03) 50px, rgba(243, 156, 18, 0.03) 100px),
+                repeating-linear-gradient(-45deg, transparent, transparent 50px, rgba(231, 76, 60, 0.02) 50px, rgba(231, 76, 60, 0.02) 100px);
+            pointer-events: none;
+        }
+
+        .services-detailed::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(243, 156, 18, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .services-detailed-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-detailed-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-detail-item {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 40px;
+            align-items: flex-start;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.95) 100%);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 5px solid var(--accent);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .service-detail-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 250px;
+            background: transparent;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .service-detail-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: transparent;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .service-detail-item:hover {
+            box-shadow: 0 15px 50px rgba(243, 156, 18, 0.3);
+            transform: translateY(-8px);
+            border-left-color: var(--primary-light);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 250, 240, 0.98) 100%);
+        }
+
+            .service-detail-icon {
+                font-size: 100px;
+                text-align: center;
+                line-height: 1;
+                position: relative;
+                z-index: 2;
+                color: var(--accent); /* Highlight the icon color */
+                text-shadow: 0 4px 10px rgba(243, 156, 18, 0.2); /* Soft shadow for depth */
+            }
+
+            .service-detail-content h3 {
+                color: var(--primary-dark); /* Strong color for title */
+                font-size: 1.8rem;
+                margin-top: 0;
+                margin-bottom: 15px;
+                border-bottom: 2px solid var(--primary-light);
+                padding-bottom: 5px;
+            }
+
+            .service-intro {
+                font-style: italic;
+                color: var(--dark);
+                margin-bottom: 20px;
+                font-size: 1.1rem;
+            }
+
+            .service-features {
+                list-style: none;
+                padding-left: 0;
+                margin-bottom: 20px;
+            }
+
+            .service-features li {
+                position: relative;
+                padding-left: 25px;
+                margin-bottom: 8px;
+                color: #444;
+                font-size: 1rem;
+            }
+
+            .service-features li::before {
+                content: "✓"; /* Checkmark icon */
+                position: absolute;
+                left: 0;
+                color: var(--primary);
+                font-weight: bold;
+            }
+
+            .service-result {
+                margin-top: 25px;
+                padding: 15px;
+                background: var(--light); /* Light background for the result box */
+                border-left: 5px solid var(--accent);
+                border-radius: 5px;
+                font-size: 1rem;
+                color: var(--dark);
+            }
+
+            .service-result strong {
+                color: var(--primary);
+            }
+
+            .service-detail-icon {
+            font-size: 100px;
+            text-align: center;
+            line-height: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-detail-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-detail-content h3 {
+            font-size: 28px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .service-intro {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .service-features li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .service-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .service-result {
+            background: #fff8e6;
+            border-left: 4px solid var(--accent);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .service-result strong {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .service-detail-item {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .service-detail-icon {
+                font-size: 60px;
+            }
+
+            .service-detail-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-detail-content h3 {
+                font-size: 22px;
+            }
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -913,7 +1658,7 @@
                 </a>
             </div>
             <div class="header-center">
-                <div class="logo">HANDY<span>VLAD</span></div>
+                <div class="logo" id="mainLogo">HANDY<span>VLAD</span></div> <!-- Добавлен id="mainLogo" -->
             </div>
             <div class="header-right">
                 <button class="share-button" id="shareButton">
@@ -931,44 +1676,203 @@
         </div>
     </section>
 
-    <section class="services section">
-        <h2 class="section-title">Our Services</h2>
-        <div class="service-grid">
-            <div class="service-card">
-                <h3><i class="fas fa-paint-roller" style="margin-right: 8px;"></i> House Painting</h3>
-                <p>Interior and exterior painting services using premium quality paints and materials.</p>
-                <ul>
-                    <li>Wall painting</li>
-                    <li>Cabinets refinishing</li>
-                    <li>Deck staining</li>
-                    <li>Wallpaper removal</li>
-                </ul>
+    <section class="services section" id="services">
+        <h2 class="section-title"><i class="fas fa-tools" style="margin-right: 10px; color: var(--accent);"></i>Our Services</h2>
+        <div class="services-detailed-container">
+
+            <!-- Kitchen Remodeling & Repairs -->
+            <div class="service-detail-item">
+                <div class="service-detail-icon">🍳</div>
+                <div class="service-detail-content">
+                    <h3>Kitchen Remodeling & Repairs</h3>
+                    <p class="service-intro">We provide complete kitchen renovation and repair services, including:</p>
+                    <ul class="service-features">
+                        <li>Installation and replacement of cabinets, countertops, and sinks</li>
+                        <li>Appliance installation (stove, dishwasher, range hood, etc.)</li>
+                        <li>Wall, ceiling, and floor repair and painting</li>
+                        <li>Plumbing work – faucet replacement, water and drain connections</li>
+                        <li>Backsplash and tile installation</li>
+                        <li>Small furniture and cabinet repairs</li>
+                    </ul>
+                    <p class="service-result"><strong>Result:</strong> a clean, functional, and modern kitchen ready to use!</p>
+                </div>
             </div>
-            <div class="service-card">
-                <h3><i class="fas fa-tools" style="margin-right: 8px;"></i> Handyman Services</h3>
-                <p>Complete home repair and maintenance solutions. No job is too small for our team.</p>
-                <ul>
-                    <li>Drywall repair</li>
-                    <li>Tile installation</li>
-                    <li>Furniture assembly</li>
-                    <li>General repairs</li>
-                </ul>
+
+            <!-- Bathroom Remodeling & Repairs -->
+            <div class="service-detail-item">
+                <div class="service-detail-icon">🛁</div>
+                <div class="service-detail-content">
+                    <h3>Bathroom Remodeling & Repairs</h3>
+                    <p class="service-intro">Transform your bathroom into a fresh, comfortable space:</p>
+                    <ul class="service-features">
+                        <li>Tile installation and replacement (walls & floors)</li>
+                        <li>Bathtub, shower, toilet, and sink repairs or replacement</li>
+                        <li>Vanity, mirror, and lighting installation</li>
+                        <li>Plumbing repairs and leak fixes</li>
+                        <li>Sealing, waterproofing, and painting with moisture-resistant materials</li>
+                    </ul>
+                    <p class="service-result"><strong>Result:</strong> a clean, bright, and fully functional bathroom built to last.</p>
+                </div>
             </div>
-            <div class="service-card">
-                <h3><i class="fas fa-home" style="margin-right: 8px;"></i> Home Renovations</h3>
-                <p>Transform your space with our renovation services from small updates to complete makeovers.</p>
-                <ul>
-                    <li>Kitchen remodeling</li>
-                    <li>Bathroom renovations</li>
-                    <li>Flooring installation</li>
-                    <li>Lighting upgrades</li>
-                </ul>
+
+            <!-- Interior Room Renovation -->
+            <div class="service-detail-item">
+                <div class="service-detail-icon">🏠</div>
+                <div class="service-detail-content">
+                    <h3>Interior Room Renovation</h3>
+                    <p class="service-intro">We handle all types of interior work, big or small:</p>
+                    <ul class="service-features">
+                        <li>Wall and ceiling painting</li>
+                        <li>Flooring installation (laminate, vinyl, hardwood)</li>
+                        <li>Door and trim repair or replacement</li>
+                        <li>Mounting shelves, TVs, mirrors, and décor</li>
+                        <li>Quick cosmetic fixes after moving or tenants</li>
+                    </ul>
+                    <p class="service-result"><strong>Result:</strong> fresh, comfortable rooms that feel like new again.</p>
+                </div>
             </div>
+
+            <!-- Stairway & Hallway Repairs -->
+            <div class="service-detail-item">
+                <div class="service-detail-icon">🪜</div>
+                <div class="service-detail-content">
+                    <h3>Stairway & Hallway Repairs</h3>
+                    <p class="service-intro">Keep your stairs and hallways safe and beautiful:</p>
+                    <ul class="service-features">
+                        <li>Painting and polishing railings</li>
+                        <li>Replacing steps and handrails</li>
+                        <li>Wall, floor, and lighting updates</li>
+                        <li>Fixing creaks, cracks, and uneven surfaces</li>
+                    </ul>
+                    <p class="service-result"><strong>Result:</strong> solid, stylish stairs that make your home look great.</p>
+                </div>
+            </div>
+
+            <!-- Painting Services -->
+            <div class="service-detail-item">
+                <div class="service-detail-icon">🎨</div>
+                <div class="service-detail-content">
+                    <h3>Painting Services</h3>
+                    <p class="service-intro">Professional painting done clean and right:</p>
+                    <ul class="service-features">
+                        <li>Interior wall, ceiling, door, and window painting</li>
+                        <li>Surface preparation (patching, sanding, priming)</li>
+                        <li>High-quality materials for smooth, lasting results</li>
+                    </ul>
+                    <p class="service-result"><strong>Result:</strong> perfectly painted walls with no mess and no stress.</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section class="tools section">
-        <h2 class="section-title">Our Tools & Equipment</h2>
+    <!-- Testimonials Section -->
+    <section class="testimonials section">
+        <h2 class="section-title">What Our Clients Say</h2>
+        <div class="testimonial-carousel-container">
+            <div class="testimonial-carousel-wrapper">
+                <div class="testimonial-carousel-track" id="testimonialTrack">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">I hired HandyVlad to paint the interior of my house, and I couldn’t be happier! The work was done quickly, cleanly, and with amazing attention to detail. Highly recommend!</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Vlad did an amazing job remodeling my kitchen. Everything looks brand new and modern now. He’s very professional, on time, and easy to communicate with. Thanks again!</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">I contacted HandyVlad for stair repairs and painting. The results were outstanding — smooth finish, perfect color match, and no mess left behind. Great work!</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">We had our living room and hallway painted by Vlad. The lines are super clean, and he helped us choose the right colors for the space. Couldn’t ask for better service.</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Excellent service from start to finish. Vlad repaired our drywall, painted two bedrooms, and made everything look flawless. Highly professional and reliable!</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">I’ve used HandyVlad twice already — first for a bathroom renovation and then for some wall painting. Both times the work was top quality. Definitely recommend!</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Very happy with the work! Vlad repainted our kitchen cabinets and walls, and the transformation is incredible. Looks fresh, bright, and professional.</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">HandyVlad did a fantastic job fixing and repainting our staircase. He was punctual, polite, and the work was done exactly as promised. Thank you so much!</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Great experience with HandyVlad. I needed help with baseboards, trim, and wall painting — all done to perfection. Honest pricing and great communication too!</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">I had some holes in the walls and peeling paint. Vlad repaired everything and repainted the entire hallway. Looks brand new now! Highly recommended.</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Vlad painted the exterior of our house, and it came out beautiful. The finish is smooth, even, and professional. You can tell he really cares about his work.</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Fantastic craftsmanship! Vlad remodeled part of our basement and repainted the walls. Very organized, respectful of our home, and delivered exactly what we wanted.</p>
+                    <span class="testimonial-author">Satisfied Client</span>
+                </div>
+                       </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <button class="carousel-btn carousel-btn-prev" id="prevTestimonial">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn carousel-btn-next" id="nextTestimonial">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- Dots indicator -->
+            <div class="carousel-dots" id="testimonialDots"></div>
+        </div>
+    </section>
+
+    <section class="tools section">        <h2 class="section-title">Our Tools & Equipment</h2>
         <div class="tools-grid">
             <div class="tool-item">
                 <i class="fas fa-paint-roller"></i>
@@ -999,7 +1903,8 @@
 
     <section class="about section">
         <h2 class="section-title" style="color: white;">About Our Company</h2>
-        <p>With over 5 years of experience serving New York City, HANDYVLAD has built a reputation for reliability, quality workmanship, and exceptional customer service.</p>
+        <p>With over 5 years of experience serving New York City, HANDYVLAD has built a reputation for reliability,
+            quality workmanship, and exceptional customer service.</p>
         <div class="stats">
             <div class="stat-item">
                 <span class="stat-number">500+</span>
@@ -1019,13 +1924,14 @@
     <section class="our-works section">
         <div class="works-intro">
             <h2>Our Works</h2>
-            <p>Discover the quality and craftsmanship that sets us apart. From elegant interior transformations to stunning exterior renovations - every project showcases our commitment to excellence.</p>
+            <p>Discover the quality and craftsmanship that sets us apart. From elegant interior transformations to
+                stunning exterior renovations - every project showcases our commitment to excellence.</p>
         </div>
 
         <!-- Image Carousel -->
         <div class="carousel-container">
             <div class="carousel-wrapper">
-                                <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-track" id="carouselTrack">
                     <div class="carousel-slide">
                         <img src="https://i.imgur.com/TD8LyYh.jpeg" alt="">
                     </div>
@@ -1063,55 +1969,7 @@
         </div>
     </section>
 
-    <section class="gallery section">
-        <h2 class="section-title">Our Recent Projects</h2>
-        <div class="gallery-intro">
-            <p>We offer many different services to transform your home. From complete renovations to exterior painting, our experienced team handles projects of all sizes across all NYC boroughs.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://mywallworks.com/wp-content/uploads/2021/09/house-painting-service.jpeg" alt="Exterior painting">
-                <div class="gallery-overlay">
-                    <h3>House Painting</h3>
-                    <p>Complete exterior repaint in Brooklyn</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Bathroom remodel">
-                <div class="gallery-overlay">
-                    <h3>Bathroom Remodel</h3>
-                    <p>Complete bathroom renovation with modern fixtures</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://www.upflip.com/wp-content/uploads/2024/09/Handyman-maintenance-skills.jpg" alt="Kitchen remodel">
-                <div class="gallery-overlay">
-                    <h3>Kitchen Upgrade</h3>
-                    <p>Custom cabinet installation</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://img1.wsimg.com/isteam/stock/bGKKVDy/:/rs=h:1000,cg:true,m" alt="Deck staining">
-                <div class="gallery-overlay">
-                    <h3>Deck Restoration</h3>
-                    <p>Staining and sealing in Queens</p>
-                </div>
-            </div>
-            <div class="gallery-item" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); display: flex; align-items: center; justify-content: center; text-align: center; padding: 30px;">
-                <div style="color: #495057;">
-                    <h3 style="color: #e74c3c; margin-bottom: 10px; font-size: 1.2rem;">Your Project Awaits</h3>
-                    <p style="font-size: 0.9rem; line-height: 1.5; margin: 0;">Ready to transform your space? We bring your vision to life with quality craftsmanship.</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Floor installation">
-                <div class="gallery-overlay">
-                    <h3>Floor Installation</h3>
-                    <p>Hardwood flooring in Staten Island</p>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <section class="contact section" id="contact">
         <h2 class="section-title">Contact Us Today</h2>
@@ -1124,7 +1982,8 @@
                 <input type="hidden" name="_captcha" value="false">
                 <!-- FIXED: Updated redirect URL to relative path -->
                 <input type="hidden" name="_next" value="thank-you.html">
-                <input type="hidden" name="_autoresponse" value="Thank you for your inquiry! We will contact you within 24 hours.">
+                <input type="hidden" name="_autoresponse"
+                    value="Thank you for your inquiry! We will contact you within 24 hours.">
 
                 <div class="form-group">
                     <label for="name">Your Name *</label>
@@ -1165,9 +2024,12 @@
             <div class="footer-column">
                 <h3>Contact Information</h3>
                 <ul>
-                    <li><i class="fas fa-phone" style="margin-right: 8px; color: var(--primary);"></i> (347) 500-3695</li>
-                    <li><i class="fas fa-envelope" style="margin-right: 8px; color: var(--primary);"></i> todavchych1989@gmail.com</li>
-                    <li><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: var(--primary);"></i> New York City, NY</li>
+                    <li><i class="fas fa-phone" style="margin-right: 8px; color: var(--primary);"></i> (347) 500-3695
+                    </li>
+                    <li><i class="fas fa-envelope" style="margin-right: 8px; color: var(--primary);"></i>
+                        todavchych1989@gmail.com</li>
+                    <li><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: var(--primary);"></i> New York
+                        City, NY</li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -1205,12 +2067,13 @@
 
     <script>
         // Carousel functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const track = document.getElementById('carouselTrack');
             const nextBtn = document.getElementById('nextBtn');
             const prevBtn = document.getElementById('prevBtn');
             const dotsContainer = document.getElementById('carouselDots');
-            
+            const mainLogo = document.getElementById('mainLogo'); // Получаем элемент логотипа
+
             const slides = track.querySelectorAll('.carousel-slide');
             const totalSlides = slides.length;
             let currentSlide = 0;
@@ -1254,6 +2117,81 @@
             // Auto-play
             setInterval(nextSlide, 5000);
 
+            // Testimonial Carousel functionality
+            const testimonialTrack = document.getElementById('testimonialTrack');
+            const nextTestimonialBtn = document.getElementById('nextTestimonial');
+            const prevTestimonialBtn = document.getElementById('prevTestimonial');
+            const testimonialDotsContainer = document.getElementById('testimonialDots');
+
+            const testimonialCards = testimonialTrack.querySelectorAll('.testimonial-card');
+            const totalTestimonials = testimonialCards.length;
+            let currentTestimonial = 0;
+
+            // Create dots for testimonials
+            for (let i = 0; i < totalTestimonials; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToTestimonial(i));
+                testimonialDotsContainer.appendChild(dot);
+            }
+
+            const testimonialDots = testimonialDotsContainer.querySelectorAll('.carousel-dot');
+
+            function updateTestimonialCarousel() {
+                testimonialTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+                testimonialDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentTestimonial);
+                });
+            }
+
+            function nextTestimonial() {
+                currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+                updateTestimonialCarousel();
+            }
+
+            function prevTestimonial() {
+                currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+                updateTestimonialCarousel();
+            }
+
+            function goToTestimonial(index) {
+                currentTestimonial = index;
+                updateTestimonialCarousel();
+            }
+
+            nextTestimonialBtn.addEventListener('click', nextTestimonial);
+            prevTestimonialBtn.addEventListener('click', prevTestimonial);
+
+            // Auto-play for testimonials - DISABLED PER USER REQUEST
+            // setInterval(nextTestimonial, 7000); // Немного медленнее для чтения
+
+            // Touch/swipe support for testimonials
+            let startXTestimonial = 0;
+            let endXTestimonial = 0;
+
+            testimonialTrack.addEventListener('touchstart', (e) => {
+                startXTestimonial = e.touches[0].clientX;
+            });
+
+            testimonialTrack.addEventListener('touchend', (e) => {
+                endXTestimonial = e.changedTouches[0].clientX;
+                handleTestimonialSwipe();
+            });
+
+            function handleTestimonialSwipe() {
+                const swipeThreshold = 50;
+                const diff = startXTestimonial - endXTestimonial;
+
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        nextTestimonial();
+                    } else {
+                        prevTestimonial();
+                    }
+                }
+            }
+
             // Touch/swipe support
             let startX = 0;
             let endX = 0;
@@ -1280,10 +2218,15 @@
                 }
             }
 
+            // Scroll to top functionality for logo
+            mainLogo.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
             // Share button functionality
             const shareButton = document.getElementById('shareButton');
-            
-            shareButton.addEventListener('click', async function() {
+
+            shareButton.addEventListener('click', async function () {
                 const shareData = {
                     title: 'HANDYVLAD - Professional Home Services in NYC',
                     text: 'Quality painting, repairs and renovations for your home or business. Get a free estimate today!',
@@ -1340,90 +2283,37 @@
                            style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #3b5998; color: white; border-radius: 50%; text-decoration: none; font-size: 20px;">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.text)}&url=${encodeURIComponent(shareData.url)}" 
-                           target="_blank"
+                        <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}" 
+                           target="_blank" 
                            style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #1da1f2; color: white; border-radius: 50%; text-decoration: none; font-size: 20px;">
                             <i class="fab fa-twitter"></i>
                         </a>
                         <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareData.url)}" 
-                           target="_blank"
+                           target="_blank" 
                            style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #0077b5; color: white; border-radius: 50%; text-decoration: none; font-size: 20px;">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
-                        <button onclick="copyToClipboard('${shareData.url}')" 
-                                style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #e74c3c; color: white; border-radius: 50%; border: none; cursor: pointer; font-size: 20px;">
+                        <button onclick="navigator.clipboard.writeText('${shareData.url}'); this.innerHTML='<i class=\"fas fa-check\"></i>'; setTimeout(() => this.innerHTML='<i class=\"fas fa-copy\"></i>', 2000);" 
+                                style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #6c757d; color: white; border-radius: 50%; border: none; cursor: pointer; font-size: 16px;">
                             <i class="fas fa-copy"></i>
                         </button>
                     </div>
-                    <button onclick="this.closest('.share-modal').remove()" 
-                            style="background: #95a5a6; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600;">
+                    <button onclick="this.closest('div').parentElement.remove()" 
+                            style="background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600;">
                         Close
                     </button>
                 `;
 
-                modal.className = 'share-modal';
                 modal.appendChild(modalContent);
                 document.body.appendChild(modal);
 
                 // Close modal when clicking outside
-                modal.addEventListener('click', function(e) {
+                modal.addEventListener('click', (e) => {
                     if (e.target === modal) {
                         modal.remove();
                     }
                 });
             }
-
-            // Form submission handling
-            const form = document.getElementById('contactForm');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent default form submission
-
-                const formData = new FormData(form);
-                const object = {};
-                formData.forEach((value, key) => object[key] = value);
-                const json = JSON.stringify(object);
-
-                fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: json
-                })
-                .then(async (response) => {
-                    if (response.ok) {
-                        window.location.href = form.querySelector('input[name="_next"]').value;
-                    } else {
-                        const data = await response.json();
-                        if (Object.hasOwn(data, 'errors')) {
-                            alert(data["errors"].map(error => error["message"]).join(", "));
-                        } else {
-                            alert('An unexpected error occurred.');
-                        }
-                    }
-                })
-                .catch(error => {
-                    alert('An error occurred while submitting the form.');
-                    console.error('Form submission error:', error);
-                });
-            });
-
-            // Copy to clipboard function
-            window.copyToClipboard = function(text) {
-                navigator.clipboard.writeText(text).then(function() {
-                    // Show success message
-                    const button = event.target.closest('button');
-                    const originalHTML = button.innerHTML;
-                    button.innerHTML = '<i class="fas fa-check"></i>';
-                    button.style.background = '#27ae60';
-                    
-                    setTimeout(() => {
-                        button.innerHTML = originalHTML;
-                        button.style.background = '#e74c3c';
-                    }, 2000);
-                });
-            };
         });
     </script>
 </body>
